@@ -10,7 +10,7 @@
 
 <h1>prefetch, preload, background image, image elementの読み込む順番</h1>
 <p>タグの順番は prefetch, preload, background image, image element</p>
-<p>Chrome65で確認したところ preload, prefetch, image element, background image</p>
+<p>Chrome65でキャッシュを無効にした場合、preload, image element, prefetch, background image</p>
 
 <div style="display: inline-block; width: 200px; height: 200px; background-size: 100% 100%; background-image: url(image.jpg?backgroundImage)"></div>
 <img src="image.jpg?imageElement" width="200" height="200">
