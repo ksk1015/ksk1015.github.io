@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Google Fontsのunicode-rangeを使ったサブセットがわかりよいデモ</title>
 <link href="https://fonts.googleapis.com/css?family=Kosugi|Kosugi+Maru|M+PLUS+1p|M+PLUS+Rounded+1c|Noto+Sans+JP|Noto+Serif+JP|Sawarabi+Gothic|Sawarabi+Mincho" rel="stylesheet">
 <style>
@@ -47,8 +48,17 @@ dd small {
 <div id="app">
 	<h1>Google Fontsのunicode-rangeを使ったサブセットがわかりよいデモ</h1>
 	<p><a href="https://qiita.com/ksk1015/items/38128a108ba8476cc7d6" target="_blank">Qiitaの記事</a></p>
-	<p><a href="https://fonts.googleapis.com/css?family=Kosugi|Kosugi+Maru|M+PLUS+1p|M+PLUS+Rounded+1c|Noto+Sans+JP|Noto+Serif+JP|Sawarabi+Gothic|Sawarabi+Mincho" target="_blank">Google Fontsのcssファイル</a></p>
 	<p>unicode-rangeに該当する文字を表示しようとしたときに必要なフォントファイルを読み込もうとする感じがわかります。<br><small>※後半のfont-faceの方が使用頻度の高い文字を指定してたので逆順で表示してます</small></p>
+	<p><small>Google Fontsのcssファイル:
+		<a href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" target="_blank">Noto Sans JP</a>
+		<a href="https://fonts.googleapis.com/css?family=Noto+Serif+JP" target="_blank">Noto Serif JP</a>
+		<a href="https://fonts.googleapis.com/css?family=M+PLUS+1p" target="_blank">M PLUS 1p</a>
+		<a href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" target="_blank">M PLUS Rounded 1c</a>
+		<a href="https://fonts.googleapis.com/css?family=Kosugi" target="_blank">Kosugi</a>
+		<a href="https://fonts.googleapis.com/css?family=Kosugi+Maru" target="_blank">Kosugi Maru</a>
+		<a href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic" target="_blank">Sawarabi Gothic</a>
+		<a href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho" target="_blank">Sawarabi Mincho</a></small>
+	</p>
 	<p v-show="isLoading">読み込み中...</p>
 	<dl v-for="range of ranges" :key="range.id">
 		<dt>
