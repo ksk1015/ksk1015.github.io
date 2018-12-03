@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>requestAnimationFrame on document.hidden</title>
+<style>
+table {
+	border-collapse: collapse;
+}
+th, td {
+	vertical-align: middle;
+	text-align: right;
+	border: 1px solid #ccc;
+	padding: .3em .5em;
+	font-size: 12px;
+}
+th {
+	font-size: 10px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+
+<h1>requestAnimationFrame on document.hidden</h1>
+
+<p>
+	<button onclick="toggle()">start / stop</button>
+</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>document.hidden</th>
+			<th>requestAnimationFrame</th>
+			<th>setTimeout</th>
+			<th>setInterval</th>
+		</tr>
+		<tbody id="container"></tbody>
+	</thead>
+</table>
+
+<script>
+var afEl, afCnt, afBegin, afEnd, afId;
+var stEl, stCnt, stBegin, stEnd, stId;
+var siEl, siCnt, siBegin, siEnd, siId;
+var updateTimer;
+
+var isPlaying = false;
+
+function start () {
+	if (isPlaying) return;
+	isPlaying = true;
+	var tr = document.createElement('tr');
+	tr.innerHTML = '<td>' + document.hidden + '</td><td>-</td><td>-</td><td>-</td>';
+	tds = tr.querySelectorAll('td');
+	document.querySelector('#container').appendChild(tr);
+
+	afEl = tds[1], stEl = tds[2], siEl = tds[3];
+	afCnt = stCnt = siCnt = 0;
+	afBegin = afEnd = stBegin = stEnd = siBegin = siEnd = Date.now();
+	afId, stId, siId = null;
+
+	var afFunc = function () {
+		afId = requestAnimationFrame(function () {
+			afCnt++;
+			afEnd = Date.now();
+			afFunc();
+		});
+	};
+
+	var stFunc = function () {
+		stId = setTimeout(function () {
+			stCnt++;
+			stEnd = Date.now();
+			stFunc();
+		}, 1000/60);
+	};
+
+	var siFunc = function () {
+		siId = setInterval(function () {
+			siCnt++;
+			siEnd = Date.now();
+		}, 1000/60);
+	};
+
+	afFunc();
+	stFunc();
+	siFunc();
+
+	updateTimer = setInterval(update, 1000);
+}
+
+function stop () {
+	if (!isPlaying) return;
+	isPlaying = false;
+	cancelAnimationFrame(afId);
+	clearTimeout(stId);
+	clearInterval(siId);
+	clearInterval(updateTimer);
+	update();
+}
+
+function update () {
+	afEl.textContent = afCnt ? Math.ceil(afCnt / (afEnd - afBegin) * 1000 * 100) / 100 + 'fps' : '0fps';
+	stEl.textContent = stCnt ? Math.ceil(stCnt / (stEnd - stBegin) * 1000 * 100) / 100 + 'fps' : '0fps';
+	siEl.textContent = siCnt ? Math.ceil(siCnt / (siEnd - siBegin) * 1000 * 100) / 100 + 'fps' : '0fps';
+}
+
+function toggle () {
+	if (isPlaying) {
+		stop();
+	}
+	else {
+		start();
+	}
+}
+
+document.addEventListener('visibilitychange', function () {
+	if (isPlaying) {
+		stop();
+		start();
+	}
+});
+</script>
+
+</body>
+</html>
