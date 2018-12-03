@@ -29,22 +29,28 @@ th {
 	<button onclick="toggle()">start / stop</button>
 </p>
 
+<p>
+	<small>setTimeout / setInterval delay: 1000/60ms</small>
+</p>
+
 <table>
 	<thead>
 		<tr>
 			<th>document.hidden</th>
-			<th>requestAnimationFrame</th>
-			<th>setTimeout</th>
-			<th>setInterval</th>
+			<th>time<br>(second)</th>
+			<th>requestAnimationFrame<br>(times / second)</th>
+			<th>setTimeout<br>(times / second)</th>
+			<th>setInterval<br>(times / second)</th>
 		</tr>
 		<tbody id="container"></tbody>
 	</thead>
 </table>
 
 <script>
-var afEl, afCnt, afBegin, afEnd, afId;
-var stEl, stCnt, stBegin, stEnd, stId;
-var siEl, siCnt, siBegin, siEnd, siId;
+var begin, totalEl;
+var afEl, afCnt, afId;
+var stEl, stCnt, stId;
+var siEl, siCnt, siId;
 var updateTimer;
 
 var isPlaying = false;
@@ -53,19 +59,19 @@ function start () {
 	if (isPlaying) return;
 	isPlaying = true;
 	var tr = document.createElement('tr');
-	tr.innerHTML = '<td>' + document.hidden + '</td><td>-</td><td>-</td><td>-</td>';
+	tr.innerHTML = '<td>' + document.hidden + '</td><td>-</td><td>-</td><td>-</td><td>-</td>';
 	tds = tr.querySelectorAll('td');
 	document.querySelector('#container').appendChild(tr);
 
-	afEl = tds[1], stEl = tds[2], siEl = tds[3];
+	totalEl = tds[1];
+	afEl = tds[2], stEl = tds[3], siEl = tds[4];
 	afCnt = stCnt = siCnt = 0;
-	afBegin = afEnd = stBegin = stEnd = siBegin = siEnd = Date.now();
+	begin = Date.now();
 	afId, stId, siId = null;
 
 	var afFunc = function () {
 		afId = requestAnimationFrame(function () {
 			afCnt++;
-			afEnd = Date.now();
 			afFunc();
 		});
 	};
@@ -73,7 +79,6 @@ function start () {
 	var stFunc = function () {
 		stId = setTimeout(function () {
 			stCnt++;
-			stEnd = Date.now();
 			stFunc();
 		}, 1000/60);
 	};
@@ -81,7 +86,6 @@ function start () {
 	var siFunc = function () {
 		siId = setInterval(function () {
 			siCnt++;
-			siEnd = Date.now();
 		}, 1000/60);
 	};
 
@@ -103,9 +107,11 @@ function stop () {
 }
 
 function update () {
-	afEl.textContent = afCnt ? Math.ceil(afCnt / (afEnd - afBegin) * 1000 * 100) / 100 + 'fps' : '0fps';
-	stEl.textContent = stCnt ? Math.ceil(stCnt / (stEnd - stBegin) * 1000 * 100) / 100 + 'fps' : '0fps';
-	siEl.textContent = siCnt ? Math.ceil(siCnt / (siEnd - siBegin) * 1000 * 100) / 100 + 'fps' : '0fps';
+	var time = Date.now() - begin;
+	totalEl.textContent = Math.ceil(time / 100)  / 10;
+	afEl.textContent = afCnt ? Math.ceil(afCnt / time * 1000 * 100) / 100 : 0;
+	stEl.textContent = stCnt ? Math.ceil(stCnt / time * 1000 * 100) / 100 : 0;
+	siEl.textContent = siCnt ? Math.ceil(siCnt / time * 1000 * 100) / 100 : 0;
 }
 
 function toggle () {
