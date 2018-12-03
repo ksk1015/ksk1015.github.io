@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>mask-imageで透過グラデーションのマスク</title>
+<style>
+html {
+	font-family: sans-serif;
+}
+
+
+.Navbar {
+	margin: 2em 0;
+	max-width: 600px;
+	background: blue;
+}
+.Navbar__mask {
+	-webkit-mask-image: linear-gradient(to right, transparent, black 1.5em, black calc(100% - 1.5em), transparent);
+	mask-image: linear-gradient(to right, transparent, black 1.5em, black calc(100% - 1.5em), transparent);
+}
+.Navbar__scroll {
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+.Navbar__scroll a {
+	display: inline-block;
+	padding: .5em .5em;
+	text-decoration: none;
+	color: #fff;
+}
+
+.Box {
+	margin: 2em 0;
+	max-width: 600px;
+	height: 400px;
+	background-color: #000;
+	background-image: url(bg.jpg);
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+	color: #fff;
+}
+.Box__mask {
+	height: 100%;
+	-webkit-mask-image: linear-gradient(transparent, #000 2em, #000 calc(100% - 3em), transparent);
+	mask-image: linear-gradient(transparent, #000 2em, #000 calc(100% - 3em), transparent);
+}
+.Box__scroll {
+	overflow-y: scroll;
+	box-sizing: border-box;
+	padding: 1em;
+	height: 100%;
+}
+.Box__scroll p {
+	margin: 0 0 1em;
+}
+.Box__scroll img {
+	float: left;
+	margin: 0 1em 1em 0;
+	width: 50%;
+	height: auto;
+}
+</style>
+</head>
+<body>
+
+<h1>mask-imageで透過グラデーション</h1>
+<p>2018.12.03</p>
+<p>mask-imageで両端に透過グラデーションをのマスクをかけるデモです。IE11はmask-image使えません。</p>
+
+<div class="Navbar">
+	<div class="Navbar__mask">
+		<div class="Navbar__scroll">
+			<a href="#">アイテム1</a>
+			<a href="#">アイテム2</a>
+			<a href="#">アイテム3</a>
+			<a href="#">アイテム4</a>
+			<a href="#">アイテム5</a>
+			<a href="#">アイテム6</a>
+			<a href="#">アイテム8</a>
+			<a href="#">アイテム9</a>
+		</div>
+	</div>
+</div>
+
+<div class="Box">
+	<div class="Box__mask">
+		<div class="Box__scroll">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<img src="photo.jpg">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
