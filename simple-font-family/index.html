@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>シンプルにfont-familyを指定したい</title>
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP" rel="stylesheet">
+<style>
+@font-face {
+  font-family: "MyYuGo";
+  src: local("Yu Gothic Medium");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "MyYuGo";
+  src: local("Yu Gothic Bold");
+  font-weight: 700;
+}
+
+.gothic-a {
+	font-family: sans-serif;
+}
+
+.gothic-b {
+	font-family: "Yu Gothic", sans-serif;
+}
+
+.gothic-c {
+	font-family: "MyYuGo", sans-serif;
+}
+
+.mincho-a {
+	font-family: serif;
+}
+
+.mincho-b {
+	font-family: 'Yu Mincho', serif;
+}
+
+.mincho-c {
+	font-family: 'Noto Serif JP', serif;
+}
+
+.font {
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+.font dt {
+	margin: 20px 0 0;
+	padding: 0;
+}
+.font dd {
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+}
+</style>
+</head>
+<body>
+<h1></h1>
+
+<p>
+	lang:
+	<select onchange="document.documentElement.setAttribute('lang', this.value)">
+		<option value="ja" selected>ja</option>
+		<option value="">指定無し</option>
+	</select>
+</p>
+
+<dl class="font">
+	<dt>指定無し</dt>
+	<dd>123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+
+	<dt>ゴシックプランA: sans-serif</dt>
+	<dd class="gothic-a">123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+
+	<dt>ゴシックプランB: 'Yu Gothic', sans-serif</dt>
+	<dd class="gothic-b">123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+
+
+	<dt>ゴシックプランC: 'YuGo', sans-serif</dt>
+	<dd class="gothic-c">123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+
+	<dt>明朝プランA: serif</dt>
+	<dd class="mincho-a">123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+
+	<dt>明朝プランB: 'Yu Mincho', serif</dt>
+	<dd class="mincho-b">123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+
+	<dt>明朝プランC: 'Noto Serif JP', serif</dt>
+	<dd class="mincho-c">123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+</dl>
+
+</body>
+</html>

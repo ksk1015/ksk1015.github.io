@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>シンプルにfont-familyを指定したい</title>
+<script>
+// 読み込むか否かの判定は簡易にUAで判定
+(function () {
+    if (/android/i.test(navigator.userAgent)) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css?family=Noto+Serif+JP';
+        document.head.appendChild(link);
+    }
+})();
+</script>
+<style>
+@font-face {
+  font-family: "MyYuGo";
+  src: local("Yu Gothic Medium");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "MyYuGo";
+  src: local("Yu Gothic Bold");
+  font-weight: 700;
+}
+
+.mincho-d {
+	font-family: 'Noto Serif JP', 'Yu Mincho', serif;
+}
+
+.font {
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+.font dt {
+	margin: 20px 0 0;
+	padding: 0;
+}
+.font dd {
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+}
+</style>
+</head>
+<body>
+<h1></h1>
+
+<p>
+	lang:
+	<select onchange="document.documentElement.setAttribute('lang', this.value)">
+		<option value="ja" selected>ja</option>
+		<option value="">指定無し</option>
+	</select>
+</p>
+
+<dl class="font">
+	<dt>明朝プランD: 'Noto Serif JP', 'Yu Mincho', serif</dt>
+	<dd class="mincho-d">123ABCあかさ日本語<br><strong>123ABCあかさ日本語</strong></dd>
+</dl>
+
+</body>
+</html>
