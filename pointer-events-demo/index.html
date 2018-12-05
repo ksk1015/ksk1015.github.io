@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>pointer-events demo</title>
+<style>
+p {
+	background: #fff;
+}
+.uzao {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	width: 206px;
+	height: 259px;
+	background: url(uzao.gif) no-repeat;
+	transition: transform 0s 1s, opacity 0s 1s;
+	cursor: pointer;
+}
+.uzao:hover,
+.uzao:focus {
+	filter: brightness(150%);
+}
+.uzao.explosion {
+	transition: transform .2s ease, opacity .2s ease;
+	transform: scale(10);
+	opacity: 0;
+	pointer-events: none;
+}
+
+.circle {
+	width: 100px;
+	height: 100px;
+}
+.circle circle {
+	fill: #98a7fc;
+	stroke: #44894a;
+	cursor: pointer;
+}
+.circle circle:hover {
+	opacity: .8;
+}
+.circle circle.pressed {
+	fill: #fef852;
+}
+</style>
+</head>
+<body>
+
+<h1>pointer-events demo</h1>
+
+<p>変なやつをクリックしてみてください</p>
+
+<button class="uzao"></button>
+
+<p>pointer-events: noneを指定するとクリックできませんが、キーボード操作でフォーカスしてクリックできます</p>
+
+<button class="uzao" style="pointer-events: none"></button>
+
+<p>svgはpointer-eventsを細かく指定できます<br>左から、デフォルト（auto）, none, fill, stroke</p>
+
+<p>
+	<svg class="circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+		<circle stroke-width="2" cx="5" cy="5" r="4"	/>
+	</svg>
+	<svg class="circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+		<circle stroke-width="2" cx="5" cy="5" r="4" pointer-events="none"/>
+	</svg>
+	<svg class="circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+		<circle stroke-width="2" cx="5" cy="5" r="4" pointer-events="fill"/>
+	</svg>
+	<svg class="circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+		<circle stroke-width="2" cx="5" cy="5" r="4" pointer-events="stroke"/>
+	</svg>
+</p>
+
+<script>
+document.addEventListener('click', e => {
+	if (e.target.matches('.uzao')) {
+		e.target.classList.add('explosion');
+	}
+	else if (e.target.matches('circle')) {
+		e.target.classList.toggle('pressed');
+	}
+});
+document.addEventListener('transitionend', e => {
+	if (e.target.matches('.uzao.explosion')) {
+		e.target.classList.remove('explosion');
+	}
+});
+</script>
+</body>
+</html>
