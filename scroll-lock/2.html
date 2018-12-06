@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>scrollLocker（iOS safariもいける）</title>
+<style>
+body {
+	margin: 0;
+	background: snow;
+}
+
+header {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	padding: 30px;
+	background: skyblue;
+	text-align: center;
+}
+
+main {
+	display: block;
+}
+
+footer {
+	padding: 30px;
+	background: tomato;
+	text-align: center;
+}
+
+.uzao {
+	 width: auto;
+	 max-width: 100%;
+	 height: 3000px;
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: pixelated;
+	pointer-events: none;
+}
+</style>
+<script>
+var scrollLocker = (function () {
+
+	var isLocked = false;
+	var scrollY = 0;
+
+	var lock = function () {
+		if (isLocked) return;
+		isLocked = true;
+		scrollY = window.pageYOffset;
+		document.documentElement.style.height = '100%';
+		document.documentElement.style.overflow = 'hidden';
+		document.body.style.height = '100%';
+		document.body.style.overflow = 'hidden';
+		document.querySelector('#Scroller').style.marginTop = '-' + scrollY + 'px';
+	};
+
+	var unlock =function () {
+		if (!isLocked) return;
+		isLocked = false;
+		document.documentElement.style.height = '';
+		document.documentElement.style.overflow = '';
+		document.body.style.height = '';
+		document.body.style.overflow = '';
+		document.querySelector('#Scroller').style.marginTop = '';
+		window.scrollTo(0, scrollY);
+	};
+
+	var toggle = function () {
+		if (isLocked) {
+			unlock();
+		} else {
+			lock();
+		}
+	};
+
+	return {
+		isLocked: function () {
+			return isLocked;
+		},
+		lock: lock,
+		unlock: unlock,
+		toggle: toggle
+	};
+
+})();
+</script>
+</head>
+<body>
+	<div id="Scroller">
+		<header>
+			<button onclick="scrollLocker.toggle()">スクロールをロック（iOS safariもいける）</button>
+		</header>
+		<main>
+			<img class="uzao" src="uzao.gif">
+		</main>
+		<footer>
+			フッター
+		</footer>
+	</div>
+</body>
+</html>
