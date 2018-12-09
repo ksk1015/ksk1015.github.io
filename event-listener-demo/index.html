@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>イベントリスナーのデモ</title>
+<script>
+// Polyfill
+if (window.NodeList && !NodeList.prototype.forEach) {
+	NodeList.prototype.forEach = function (callback, thisArg) {
+		thisArg = thisArg || window;
+		for (var i = 0; i < this.length; i++) {
+			callback.call(thisArg, this[i], i, this);
+		}
+	};
+}
+if (!Element.prototype.matches) {
+	Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+	if (!Element.prototype.closest) {
+		Element.prototype.closest = function(s) {
+			var el = this;
+			if (!document.documentElement.contains(el)) return null;
+			do {
+				if (el.matches(s)) return el;
+				el = el.parentElement || el.parentNode;
+			} while (el !== null && el.nodeType === 1); 
+			return null;
+		};
+	}
+}
+if (window.Element && !Element.prototype.closest) {
+	Element.prototype.closest = function(s) {
+		var matches = (this.document || this.ownerDocument).querySelectorAll(s), i, el = this;
+		do {
+			i = matches.length;
+			while (--i >= 0 && matches.item(i) !== el) {};
+		} while ((i < 0) && (el = el.parentElement)); 
+		return el;
+	};
+}
+</script>
+</head>
+<body>
+
+<h1>イベントリスナーのデモ</h1>
+
+<small>ログ</small>
+<ol id="myLogContainer" style="font-size: 11px; border: 1px solid #ccc; height: 10em; overflow-y: scroll; resize: vertical;"></ol>
+
+<div id="container">
+	<p>以下のボタンをクリックしたり、inputにフォーカスしたり</p>
+	<p class="button">
+		<button>button</button>
+	</p>
+	<p class="buttonStop">
+		<button data-stop>button（stopPropagation in capturefase）</button>
+	</p>
+	<p class="input">
+		<input type="text">
+	</p>
+	<p class="img">
+		<img src="uzao.gif" width="206" height="259">
+	</p>
+</div>
+
+<hr>
+
+<form onsubmit="add(this.selector.value); return false">
+	<p>
+		<select name="selector">
+			<option value=".button">button</option>
+			<option value=".buttonStop">button (stopPropagation)</option>
+			<option value=".input">input</option>
+			<option value=".img">img</option>
+		</select>
+		<button>add</button>
+	</p>
+</form>
+
+<script>
+function add (selector) {
+	var container = document.querySelector('#container');
+	var clone = container.querySelector(selector).cloneNode(true);
+	container.appendChild(clone);
+}
+
+function myLog (msg) {
+	var container = document.querySelector('#myLogContainer');
+	var el = document.createElement('li');
+	el.textContent = msg;
+	container.appendChild(el);
+	container.scrollTop = container.scrollHeight - container.clientHeight;
+	console.log(msg);
+}
+
+function eventListenerTest (selector, eventName) {
+
+	var realSelector = '#container ' + selector;
+
+	// documentにリスナーをはる
+	document.addEventListener(eventName, function (e) {
+		var el = e.target.matches(realSelector) ? e.target : e.target.closest(realSelector);
+		if (el) {
+			myLog('document listen ' + eventName + ' on ' + selector);
+		}
+	});
+
+	// それぞれの要素にリスナーをはる、onプロパティにも
+	document.querySelectorAll(realSelector).forEach(function (el) {
+		el.addEventListener(eventName, function (e) {
+			myLog(selector + ' listen ' + eventName + ' on self');
+		});
+		el['on' + eventName] = function () {
+			myLog(selector + ' listen ' + eventName + ' on self by on' + eventName);
+		};
+	});
+
+	// documentにuseCaptureでリスナーをはる
+	// data-stop属性の場合、stopPropagationする
+	document.addEventListener(eventName, function (e) {
+		var el = e.target.matches(realSelector) ? e.target : e.target.closest(realSelector);
+		if (el) {
+			if (el.matches('[data-stop]')) {
+				e.stopPropagation();
+			}
+			myLog('document listen ' + eventName +  ' on ' + selector + ' in capture fase');
+		}
+	}, true);
+
+}
+
+eventListenerTest('a', 'click');
+eventListenerTest('button', 'click');
+eventListenerTest('input[type="text"]', 'focus');
+eventListenerTest('img', 'load');
+</script>
+</body>
+</html>
