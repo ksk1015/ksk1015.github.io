@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>バブリングしないイベントをキャプチャフェーズで検知する</title>
+<script>
+// Polyfill
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+  if (!Element.prototype.closest) {
+    Element.prototype.closest = function(s) {
+      var el = this;
+      if (!document.documentElement.contains(el)) return null;
+      do {
+        if (el.matches(s)) return el;
+        el = el.parentElement || el.parentNode;
+      } while (el !== null && el.nodeType === 1); 
+      return null;
+    };
+  }
+}
+if (window.Element && !Element.prototype.closest) {
+  Element.prototype.closest = function(s) {
+    var matches = (this.document || this.ownerDocument).querySelectorAll(s), i, el = this;
+    do {
+      i = matches.length;
+      while (--i >= 0 && matches.item(i) !== el) {};
+    } while ((i < 0) && (el = el.parentElement)); 
+    return el;
+  };
+}
+
+
+document.addEventListener('click', function (e) {
+  var el = e.target.matches('button') ? e.target : e.target.closest('button');
+  if (el) {
+    console.log('バブリングフェーズでbuttonのclickイベントを検知');
+  }
+}, false);
+
+document.addEventListener('click', function (e) {
+  var el = e.target.matches('button') ? e.target : e.target.closest('button');
+  if (el) {
+    console.log('キャプチャフェーズでbuttonのclickイベントを検知');
+  }
+}, true);
+
+document.addEventListener('focus', function (e) {
+  var el = e.target.matches('input') ? e.target : e.target.closest('input');
+  if (el) {
+    console.log('バブリングフェーズでinputのfocusイベントを検知');
+  }
+}, false);
+
+document.addEventListener('focus', function (e) {
+  var el = e.target.matches('input') ? e.target : e.target.closest('input');
+  if (el) {
+    console.log('キャプチャフェーズでinputのfocusイベントを検知');
+  }
+}, true);
+</script>
+</head>
+<body>
+
+  <p>バブリングするclickイベントは、useCapture: falseでもdocumentで検知できる</p>
+
+  <p>
+    <button>ボタン</button>
+  </p>
+
+  <p>バブリングしないfocusイベントは、useCapture: trueでないとdocumentで検知できない</p>
+
+  <p>
+    <input type="text">
+  </p>
+
+</body>
+</html>
