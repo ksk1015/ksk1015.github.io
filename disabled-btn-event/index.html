@@ -3,22 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-<title>input time</title>
+<title>disabled属性のbuttonで発火しなくなるイベントのブラウザによる違いを検証</title>
+<style>
+.wrap {
+	position: relative;
+	height: 500px;
+	background: #fff;
+}
+.under {
+	position: absolute;
+	top: 50px;
+	left: 100px;
+	right: 10px;
+	bottom: 10px;
+	padding: 1em;
+	background: #fee;
+}
+.enabled-btn,
+.disabled-btn {
+	position: absolute;
+	left: 10px;
+	background: rgba(200,200,200,.5);
+	font-size: 100%;
+}
+.enabled-btn {
+	top: 120px;
+}
+.disabled-btn {
+	top: 180px;
+}
+
+[data-event]::after {
+	content: attr(data-event);
+}
+[data-event=""]::after {
+	content: "eventType"
+}
+</style>
 </head>
 <body>
-
-<p><button>enabled button</button><span></span></p>
-<p><button disabled>disabled button</button><span></span></p>
-
+<div class="wrap" data-event>
+	wrap: 
+	<div class="under" data-event>under: </div>
+	<button class="enabled-btn" data-event>enabled button: </button>
+	<button class="disabled-btn" disabled data-event>disabled button: </button>
+</div>
 <script>
-var btn = document.querySelectorAll('button');
 var handler = function (e) {
-	e.target.nextSibling.textContent = ' : ' + e.type;
-	console.log((e.target.disabled ? 'disabled:' : 'enabled:') + e.type);
+	e.target.setAttribute('data-event', e.type);
+	console.log(e.target.className + ': ' + e.type)
 };
+
+var under =  document.querySelectorAll('.under');
+var btn = document.querySelectorAll('button');
+
 'mouseenter mouseleave mousedown mousemove mouseup touchstart touchmove touchend touch click dblclick focus blur'.split(' ').forEach(function (eventType) {
-	btn[0].addEventListener(eventType, handler);
-	btn[1].addEventListener(eventType, handler);
+	document.addEventListener(eventType, function (e) {
+		console.log('document: ' + e.type)
+	});
+	document.querySelector('.wrap').addEventListener(eventType, handler);
+	document.querySelector('.under').addEventListener(eventType, handler);
+	document.querySelector('.enabled-btn').addEventListener(eventType, handler);
+	document.querySelector('.disabled-btn').addEventListener(eventType, handler);
 });
 </script>
 
