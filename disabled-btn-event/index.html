@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<title>input time</title>
+</head>
+<body>
+
+<p><button>enabled button</button><span></span></p>
+<p><button disabled>disabled button</button><span></span></p>
+
+<script>
+var btn = document.querySelectorAll('button');
+var handler = function (e) {
+	e.target.nextSibling.textContent = ' : ' + e.type;
+	console.log((e.target.disabled ? 'disabled:' : 'enabled:') + e.type);
+};
+'mouseenter mouseleave mousedown mousemove mouseup touchstart touchmove touchend touch click dblclick focus blur'.split(' ').forEach(function (eventType) {
+	btn[0].addEventListener(eventType, handler);
+	btn[1].addEventListener(eventType, handler);
+});
+</script>
+
+</body>
+</html>
