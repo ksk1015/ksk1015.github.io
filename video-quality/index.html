@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Video Quality</title>
+	<style>
+		.controller {
+			margin: 1em;
+		}
+		.controller select,
+		.controller span {
+			font-size: 13px;
+		}
+
+		.videoWrap {
+			position: relative;
+		}
+		.videoWrap::before {
+			content: "";
+			display: block;
+			padding-top: 56.25%;
+		}
+		.videoWrap video {
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+		}
+		#videoOverlay {
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 2'%3E%3Cpath d='m0,0h1v1h1v1h-1v-1h-1'/%3E%3C/svg%3E") repeat;
+			background-size: 0px;
+		}
+		.ref {
+			margin: 1em 0 0;
+			text-align: right;
+			font-size: 11px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="controller">
+	<select id="selectSize" onchange="update()">
+		<option value="1920x1080">1920x1080</option>
+		<option value="1280x720">1280x720</option>
+		<option value="854x480">854x480</option>
+		<option value="640x360" selected>640x360</option>
+		<option value="426x240">426x240</option>
+		<option value="144x108">144x108</option>
+	</select>
+	<select id="selectFps" onchange="update()">
+		<option value="" selected>30fps</option>
+		<option value="_20">20fps</option>
+		<option value="_10">10fps</option>
+		<option value="_5">5fps</option>
+	</select>
+	<span id="contentLength"></span>
+	/
+	<select id="selectOverlay" onchange="updateOverlay()">
+		<option value="0px" selected>Texture none</option>
+		<option value="2px">Texture 2px</option>
+		<option value="4px">Texture 4px</option>
+	</select>
+</div>
+
+<div class="videoWrap" onclick="playPause()">
+	<video id="video" muted autoplay loop playsinline webkit-playsinline></video>
+	<div id="videoOverlay"></div>
+</div>
+
+<p class="ref">動画は<a href="https://www.genkotsu-hb.com" target="_blank">げんこつハンバーグの炭焼きレストランさわやか</a>より</p>
+
+<script>
+function update () {
+	const src = selectSize.value + selectFps.value + '.mp4';
+	const currentTime = video.currentTime;
+	if (src !== video.getAttribute('src')) {
+		video.src = src;
+		video.currentTime = currentTime;
+		fetch(src, {method: 'HEAD'}).then(res => {
+			const len = res.headers.get('content-length');
+			contentLength.textContent = Math.round(len / 1000) + 'KB';
+		})
+	}
+}
+
+function updateOverlay () {
+	videoOverlay.style.backgroundSize = selectOverlay.value;
+}
+
+function playPause () {
+	if (video.paused) {
+		video.play()
+		video.autoplay = 1;
+	} else {
+		video.pause()
+		video.autoplay = 0;
+	}
+}
+
+update();
+updateOverlay();
+</script>
+
+</body>
+</html>
