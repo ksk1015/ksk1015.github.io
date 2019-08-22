@@ -3,8 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Video Quality</title>
+	<title>Compare videos by size and fps</title>
 	<style>
+		h1 {
+			font-size: 120%;
+		}
 		.controller {
 			margin: 1em;
 		}
@@ -48,6 +51,8 @@
 </head>
 <body>
 
+<h1>Compare videos by size and fps</h1>
+
 <div class="controller">
 	<select id="selectSize" onchange="update()">
 		<option value="1920x1080">1920x1080</option>
@@ -55,11 +60,12 @@
 		<option value="854x480">854x480</option>
 		<option value="640x360" selected>640x360</option>
 		<option value="426x240">426x240</option>
-		<option value="144x108">144x108</option>
+		<option value="192x108">192x108</option>
 	</select>
 	<select id="selectFps" onchange="update()">
-		<option value="" selected>30fps</option>
-		<option value="_20">20fps</option>
+		<option value="">29.97fps</option>
+		<option value="_20" selected>20fps</option>
+		<option value="_15">15fps</option>
 		<option value="_10">10fps</option>
 		<option value="_5">5fps</option>
 	</select>
@@ -77,7 +83,7 @@
 	<div id="videoOverlay"></div>
 </div>
 
-<p class="ref">動画は<a href="https://www.genkotsu-hb.com" target="_blank">げんこつハンバーグの炭焼きレストランさわやか</a>より</p>
+<p class="ref">動画は<a href="https://www.pexels.com/video/video-of-ocean-waves-1093655/" target="_blank">https://www.pexels.com/video/video-of-ocean-waves-1093655/</p>
 
 <script>
 function update () {
