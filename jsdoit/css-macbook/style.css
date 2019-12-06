@@ -1,0 +1,361 @@
+html, body {
+    margin:0;
+    padding:0;
+}
+
+html {
+    overflow-y:scroll;
+}
+
+body {
+    counter-increment:macbookair 0;/* macbookairのデフォルトの価格を設定 */
+    font-size:11px;
+    font-family:sans-serif;
+    color:#333;
+}
+
+/*-----------------------------------------------
+　◆MacBook Air 本体のradio
+　・全体のスタイルに反映させるので一番最初に
+　・display:noneで非表示にするとcounter-incrementが効かない
+-----------------------------------------------*/
+input[name="mba"] {
+    position:absolute;
+    left:-1000px;
+}
+
+h1 {
+    margin:10px 7px 0;
+    font-size:18px;
+}
+
+/*-----------------------------------------------
+　◆MacBook Air 本体のradioをチェックするlabel
+-----------------------------------------------*/
+.mba {
+    margin:5px 15px 10px;
+}
+.mba label {
+    position:relative;
+    display:block;
+    margin:7px 0 0;
+    padding:5px 10px;
+    width:200px;
+    height:16px;
+    background-color:#eee;/* fallback */
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.49, #fff), color-stop(0.51, #eee), to(#eee));
+    background-image:-webkit-linear-gradient(top, #fff, #fff 49%, #eee 51%, #eee);
+    background-image:-moz-linear-gradient(top, #fff, #fff 49%, #eee 51%, #eee);
+    background-image:-ms-linear-gradient(top, #fff, #fff 49%, #eee 51%, #eee);
+    background-image:-o-linear-gradient(top, #fff, #fff 49%, #eee 51%, #eee);
+    background-image:linear-gradient(top, #fff, #fff 49%, #eee 51%, #eee);
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    -webkit-box-shadow:0 1px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow:0 1px 2px rgba(0,0,0,0.5);
+    box-shadow:0 1px 2px rgba(0,0,0,0.5);
+    text-align:center;
+    line-height:16px;
+    font-weight:bold;
+    color:#999;
+    text-shadow:0 1px #fff;
+    cursor:pointer;
+}
+.mba label:hover {
+    color:#333;
+}
+/* チェック時 */
+/* 間接セレクタにバグがあるブラウザ対策に隣接セレクタで */
+/* #mba-11-64:checked + div label だとOperaでは
+　　labelの親要素の中で最初のdivが#mba-11-64:checkedに隣接してるという解釈になり上手く動かない */
+#mba-11-64:checked  + #div-mba-11-64  .mba label[for="mba-11-64"],
+#mba-11-128:checked + #div-mba-11-128 .mba label[for="mba-11-128"],
+#mba-13-128:checked + #div-mba-13-128 .mba label[for="mba-13-128"],
+#mba-13-256:checked + #div-mba-13-256 .mba label[for="mba-13-256"] {
+    background-color:#444;/* fallback */
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#555), color-stop(0.49, #555), color-stop(0.51, #444), to(#444));
+    background-image:-webkit-linear-gradient(top, #555, #555 49%, #444 51%, #444);
+    background-image:-moz-linear-gradient(top, #555, #555 49%, #444 51%, #444);
+    background-image:-ms-linear-gradient(top, #555, #555 49%, #444 51%, #444);
+    background-image:-o-linear-gradient(top, #555, #555 49%, #444 51%, #444);
+    background-image:linear-gradient(top, #555, #555 49%, #444 51%, #444);
+    color:#fff;
+    text-shadow:1px 0 #eee;
+}
+
+/*-----------------------------------------------
+　◆オプション
+-----------------------------------------------*/
+.options  {
+    margin:20px 0 0;
+    display:block;
+}
+/* 本体がチェックされてない時は非表示*/
+#mba-none:checked + #div-mba-none .options {
+    display:none;
+}
+
+.options h2 {
+    margin:0 5px;
+    padding:0;
+    font-size:13px;
+}
+
+/* 表示非表示切り替え用のチェックボックス */
+.switch {
+    display:none;
+}
+
+.category {
+    margin:0 5px;
+    border:1px solid #ccc;
+    border-top-width:0;
+}
+.category:first-of-type {
+    border-top-width:1px;
+}
+
+.category h3 {
+    margin:0;
+    padding:10px 10px;
+    height:15px;
+    line-height:15px;
+    border-top:1px solid #fff;
+    background-color:#fff;/* fallback */
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));/* for Safari */
+    -webkit-background-size:100% 25px;/* for Safari */
+    background-repeat:no-repeat;/* for Safari */
+    background-image:-webkit-linear-gradient(top, #eee, #fff 25px);
+    background-image:-moz-linear-gradient(top, #eee, #fff 25px);
+    background-image:-ms-linear-gradient(top, #eee, #fff 25px);
+    background-image:-o-linear-gradient(top, #eee, #fff 25px);
+    background-image:linear-gradient(top, #eee, #fff 25px);
+    font-size:100%;
+}
+.category h3 label {
+    display:block;
+    cursor:pointer;
+}
+
+/* ボーダーで三角 */
+.category h3 label::before {
+    content:"";
+    display:inline-block;
+    margin-right:5px;
+    width:0;
+    height:0;
+    vertical-align:baseline;
+    
+    border-width:4px 0 4px 6px;
+    border-style:solid;
+    border-color:transparent transparent transparent #aaa;
+}
+
+/* チェックされてる時（オープン時）は三角を下に向ける */
+.switch:checked + .category  h3 label::before {
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    -o-transform:rotate(90deg);
+    transform:rotate(90deg);
+}
+
+.category dl {
+    overflow:hidden;
+    margin:0 10px 0 20px;
+    height:0;
+    
+    -webkit-transition:height 0.6s ease;
+    -moz-transition:height 0.6s ease;
+    -ms-transition:height 0.6s ease;
+    -o-transition:height 0.6s ease;
+    transition:height 0.6s ease;
+}
+
+/* チェックされてるときにオープン */
+.switch:checked + .category  dl {
+    margin:10px 10px 10px 20px;
+    height:auto;
+}
+
+.category dt {
+    margin:10px 0 0;
+    padding:5px;
+    border:1px solid #CCC;
+    border-width:1px 1px 0;
+    border-radius:5px 5px 0 0;
+    background:#eee;
+    font-weight:bold;
+}
+.category dt:first-child {
+    margin-top:0;
+}
+
+.category dd {
+    margin:0;
+    padding:5px 5px 10px 10px;
+    border:1px solid #CCC;
+    border-width:0 1px 1px;
+    -webkit-border-radius:0 0 5px 5px;
+    -moz-border-radius:0 0 5px 5px;
+    border-radius:0 0 5px 5px;
+    background-color:#fff;/* fallback */
+    background-image:-webkit-gradient(linear, left bottom, left top, from(#eee), to(#fff));
+    -webkit-background-size:100% 15px;/* for Safari */
+    background-repeat:no-repeat;/* for Safari */
+    background-position:0 bottom;/* for Safari */
+    background-image:-webkit-linear-gradient(bottom, #eee, #fff 15px);
+    background-image:-moz-linear-gradient(bottom, #eee, #fff 15px);
+    background-image:-ms-linear-gradient(bottom, #eee, #fff 15px);
+    background-image:-o-linear-gradient(bottom, #eee, #fff 15px);
+    background-image:linear-gradient(bottom, #eee, #fff 15px);
+}
+.category dd label {
+    display:block;
+    padding-left:1em;
+    text-indent:-1em;
+}
+
+/*-----------------------------------------------
+　◆右上の合計金額表示するボックス
+-----------------------------------------------*/
+.summary {
+    position:fixed;
+    right:10px;
+    top:10px;
+}
+.summary h2 {
+    overflow:hidden;
+    margin:0;
+    padding:3px 10px;
+    border:1px solid #999;
+    border-bottom:0;
+    -webkit-border-radius:5px 5px 0 0;
+    -moz-border-radius:5px 5px 0 0;
+    border-radius:5px 5px 0 0;
+    background-color:#247;/* fallback */
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#579), to(#247));
+    background-image:-webkit-linear-gradient(top, #579, #247);
+    background-image:-moz-linear-gradient(top, #579, #247);
+    background-image:-ms-linear-gradient(top, #579, #247);
+    background-image:-o-linear-gradient(top, #579, #247);
+    background-image:linear-gradient(top, #579, #247);
+    font-size:13px;
+    color:#fff;
+}
+.summary .body {
+    padding:3px 10px;
+    border:1px solid #999;
+    border-top:0;
+    -webkit-border-radius:0 0 5px 5px;
+    -moz-border-radius:0 0 5px 5px;
+    border-radius:0 0 5px 5px;
+    background:#fff;
+}
+.summary .fee {
+    margin:5px 0 0;
+}
+.summary .fee::before {
+    content:"￥"counter(macbookair);/* 合計金額 */
+    display:inline-block;
+    width:10ex;
+    text-align:right;
+    font-size:13px;
+    font-weight:bold;
+}
+.summary .fee small {
+    margin-left:5px;
+    font-size:10px;
+    color:#666;
+}
+.summary .shippingDate {
+    margin:5px 0 0;
+    color:#666;
+}
+.summary .shippingFree {
+    margin:5px 0 0;
+    color:#f30;
+}
+.summary .buy {
+    margin:15px 0;
+    text-align:center;
+}
+.summary .buy a {
+    display:inline-block;
+    padding:5px 20px;
+    border:1px solid #091;
+    background-color:#090;/* fallback */
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#8D9), color-stop(0.2, #8D9), color-stop(0.3, #2A2), to(#090));
+    background-image:-webkit-linear-gradient(top, #8D9, #8D9 2px, #2A2 8px, #090);
+    background-image:-moz-linear-gradient(top, #8D9, #8D9 2px, #2A2 8px, #090);
+    background-image:-ms-linear-gradient(top, #8D9, #8D9 2px, #2A2 8px, #090);
+    background-image:-o-linear-gradient(top, #8D9, #8D9 2px, #2A2 8px, #090);
+    background-image:linear-gradient(top, #8D9, #8D9 2px, #2A2 8px, #090);
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    -webkit-box-shadow:0 1px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow:0 1px 2px rgba(0,0,0,0.5);
+    box-shadow:0 1px 2px rgba(0,0,0,0.5);
+    line-height:1;
+    color:#fff;
+    text-decoration:none;
+}
+.summary .buy a:hover {
+    background-color:#081;/* fallback */
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#8C9), color-stop(0.2, #8C9), color-stop(0.3, #292), to(#081));
+    background-image:-webkit-linear-gradient(top, #8C9, #8C9 2px, #292 8px, #081);
+    background-image:-moz-linear-gradient(top, #8C9, #8C9 2px, #292 8px, #081);
+    background-image:-ms-linear-gradient(top, #8C9, #8C9 2px, #292 8px, #081);
+    background-image:-o-linear-gradient(top, #8C9, #8C9 2px, #292 8px, #081);
+    background-image:linear-gradient(top, #8C9, #8C9 2px, #292 8px, #081);
+}
+/* 本体選択されてないときはdisabledな感じで */
+#mba-none:checked + #div-mba-none .summary .buy a {
+    border:1px solid #666;
+    background-color:#444;/* fallback */
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#777), color-stop(0.2, #777), color-stop(0.3, #555), to(#444));
+    background-image:-webkit-linear-gradient(top, #777, #777 2px, #555 8px, #444);
+    background-image:-moz-linear-gradient(top, #777, #777 2px, #555 8px, #444);
+    background-image:-ms-linear-gradient(top, #777, #777 2px, #555 8px, #444);
+    background-image:-o-linear-gradient(top, #777, #777 2px, #555 8px, #444);
+    background-image:linear-gradient(top, #777, #777 2px, #555 8px, #444);
+    color:#aaa;
+    pointer-events:none;
+}
+
+/*-----------------------------------------------
+  ◆加算演算用の奴
+   ・残念ながらこのように一つひとつ設定しないと加算されません
+-----------------------------------------------*/
+/* Opera11ハック */
+@media not screen and (1) {
+    input[value="0"]:checked {counter-increment:macbookair 0;}
+}
+
+input[value="84800"]:checked {counter-increment:macbookair 84800;}
+input[value="102800"]:checked {counter-increment:macbookair 102800;}
+input[value="110800"]:checked {counter-increment:macbookair 110800;}
+input[value="138800"]:checked {counter-increment:macbookair 138800;}
+input[value="9001"]:checked {counter-increment:macbookair 9001;}
+input[value="6800"]:checked {counter-increment:macbookair 6800;}
+input[value="84800"]:checked {counter-increment:macbookair 84800;}
+input[value="2400"]:checked {counter-increment:macbookair 2400;}
+input[value="24800"]:checked {counter-increment:macbookair 24800;}
+input[value="9800"]:checked {counter-increment:macbookair 9800;}
+input[value="3400"]:checked {counter-increment:macbookair 3400;}
+input[value="11400"]:checked {counter-increment:macbookair 11400;}
+input[value="3360"]:checked {counter-increment:macbookair 3360;}
+input[value="5800"]:checked {counter-increment:macbookair 5800;}
+input[value="4800"]:checked {counter-increment:macbookair 4800;}
+input[value="99800"]:checked {counter-increment:macbookair 99800;}
+input[value="14900"]:checked {counter-increment:macbookair 14900;}
+input[value="199800"]:checked {counter-increment:macbookair 199800;}
+input[value="10000"]:checked {counter-increment:macbookair 10000;}
+input[value="12810"]:checked {counter-increment:macbookair 12810;}
+input[value="19950"]:checked {counter-increment:macbookair 19950;}
+input[value="29820"]:checked {counter-increment:macbookair 29820;}
+input[value="24990"]:checked {counter-increment:macbookair 24990;}
+input[value="-100000"]:checked {counter-increment:macbookair -100000;}
+input[value="1000000"]:checked {counter-increment:macbookair 1000000;}

@@ -1,0 +1,453 @@
+input[name=status] {
+    display:none;
+}
+
+section {
+    position:relative;
+    display:block;
+    width:200px;
+    height:120px;
+}
+
+/* カバー */
+section:before {
+    content:"";
+    position:absolute;
+    z-index:2;
+    left:0;
+    top:0;
+    overflow:hidden;
+    display:block;
+    width:80px;
+    height:20px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    border-style:solid;
+    border-color:rgba(0,0,0,1);
+    border-width:50px 100px 50px 20px;
+    background-image:
+        -webkit-gradient(
+			linear,
+        	left top,
+			left bottom,
+			from(rgba(0,0,0,0.5)),
+			color-stop(0.2, rgba(0,0,0,0.0)),
+			color-stop(0.9, rgba(0,0,0,0.0)),
+			from(rgba(0,0,0,0.5))
+    	),
+        -webkit-gradient(
+			linear,
+        	left top,
+			right top,
+			from(rgba(0,0,0,0.5)),
+			color-stop(0.1, rgba(0,0,0,0.0)),
+			color-stop(0.98, rgba(0,0,0,0.0)),
+			from(rgba(0,0,0,0.5))
+    	);
+    background-image:
+        -webkit-linear-gradient(
+        	top,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 20%,
+            rgba(0,0,0,0.0) 90%,
+            rgba(0,0,0,0.5) 100%
+    	),
+        -webkit-linear-gradient(
+            left,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 10%,
+            rgba(0,0,0,0.0) 98%,
+            rgba(0,0,0,0.5) 100%
+    	);
+    background-image:
+        -moz-linear-gradient(
+        	top,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 20%,
+            rgba(0,0,0,0.0) 90%,
+            rgba(0,0,0,0.5) 100%
+    	),
+        -moz-linear-gradient(
+            left,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 10%,
+            rgba(0,0,0,0.0) 98%,
+            rgba(0,0,0,0.5) 100%
+    	);
+    background-image:
+        -ms-linear-gradient(
+        	top,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 20%,
+            rgba(0,0,0,0.0) 90%,
+            rgba(0,0,0,0.5) 100%
+    	),
+        -ms-linear-gradient(
+            left,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 10%,
+            rgba(0,0,0,0.0) 98%,
+            rgba(0,0,0,0.5) 100%
+    	);
+    background-image:
+        -o-linear-gradient(
+        	top,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 20%,
+            rgba(0,0,0,0.0) 90%,
+            rgba(0,0,0,0.5) 100%
+    	),
+        -o-linear-gradient(
+            left,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 10%,
+            rgba(0,0,0,0.0) 98%,
+            rgba(0,0,0,0.5) 100%
+    	);
+    background-image:
+        linear-gradient(
+        	top,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 20%,
+            rgba(0,0,0,0.0) 90%,
+            rgba(0,0,0,0.5) 100%
+    	),
+        linear-gradient(
+            left,
+    		rgba(0,0,0,0.5) 0%,
+    		rgba(0,0,0,0.0) 10%,
+            rgba(0,0,0,0.0) 98%,
+            rgba(0,0,0,0.5) 100%
+    	);
+    -webkit-box-shadow:1px 1px 3px rgba(0,0,0,0.3);
+	-moz-box-shadow:1px 1px 3px rgba(0,0,0,0.3);
+	box-shadow:1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* グロー */
+section:after {
+    content:"";
+    position:absolute;
+    z-index:3;
+    left:0;
+    top:0;
+    overflow:hidden;
+    display:block;
+    width:200px;
+    height:120px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+    border-radius:10px;
+    background-image:
+        -webkit-gradient(
+			linear,
+            left top,
+			left bottom,
+    		from(rgba(255,255,255,0.5)),
+              to(rgba(255,255,255,0.1))
+    	);
+    background-image:
+        -webkit-linear-gradient(
+            top,
+    		rgba(255,255,255,0.5)   0%,
+            rgba(255,255,255,0.1) 100%
+    	);
+    background-image:
+        -moz-linear-gradient(
+            top,
+    		rgba(255,255,255,0.5)   0%,
+            rgba(255,255,255,0.1) 100%
+    	);
+    background-image:
+        -ms-linear-gradient(
+            top,
+    		rgba(255,255,255,0.5)   0%,
+            rgba(255,255,255,0.1) 100%
+    	);
+    background-image:
+        -o-linear-gradient(
+            top,
+    		rgba(255,255,255,0.5)   0%,
+            rgba(255,255,255,0.1) 100%
+    	);
+    background-image:
+        linear-gradient(
+            top,
+    		rgba(255,255,255,0.5)   0%,
+            rgba(255,255,255,0.1) 100%
+    	);
+}
+
+/* 文字盤 */
+time {
+    position:relative;
+    left:20px;
+    top:10px;
+    float:left;
+    display:block;
+    margin-left:-80px;
+    width:100px;
+    height:100px;
+	-webkit-border-radius:50px;
+	-moz-border-radius:50px;
+    border-radius:50px;
+    background:#fff;
+	-webkit-box-shadow:0 0 3px rgba(0,0,0,0.5);
+	-moz-box-shadow:0 0 3px rgba(0,0,0,0.5);
+    box-shadow:0 0 3px rgba(0,0,0,0.5);
+    color:#000;
+	
+    -webkit-animation-name:turnTickly;
+    -webkit-animation-timing-function:linear;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-name:turnTickly;
+    -moz-animation-timing-function:linear;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-name:turnTickly;
+    -ms-animation-timing-function:linear;
+    -ms-animation-iteration-count:infinite;
+    -ms-animation-name:turnTickly;
+    -o-animation-timing-function:linear;
+    -o-animation-iteration-count:infinite;
+    -o-animation-name:turnTickly;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    animation-name:turnTickly;
+}
+
+time:nth-child(1) {margin-left:0;}
+time:nth-child(4) {-webkit-animation-name:turnSmoothly; -moz-animation-name:turnSmoothly; -ms-animation-name:turnSmoothly; -o-animation-name:turnSmoothly; animation-name:turnSmoothly;}
+
+time:nth-child(1) {-webkit-animation-duration:1000s; -moz-animation-duration:1000s; -ms-animation-duration:1000s; -o-animation-duration:1000s; animation-duration:1000s;}
+time:nth-child(2) {-webkit-animation-duration: 100s; -moz-animation-duration: 100s; -ms-animation-duration: 100s; -o-animation-duration: 100s; animation-duration: 100s;}
+time:nth-child(3) {-webkit-animation-duration:  10s; -moz-animation-duration:  10s; -ms-animation-duration:  10s; -o-animation-duration:  10s; animation-duration:  10s;}
+time:nth-child(4) {-webkit-animation-duration:   1s; -moz-animation-duration:   1s; -ms-animation-duration:   1s; -o-animation-duration:   1s; animation-duration:   1s;}
+
+/* 文字盤の文字 */
+time > span {
+    position:absolute;
+    display:block;
+    width:100px;
+    height:100px;
+    counter-increment:digit;
+}
+time > span:first-child {
+    counter-reset:digit;
+    counter-increment:digit 0;/* 0からカウント */
+}
+time > span:before {
+    content:counter(digit);
+    display:block;
+    height:100px;
+    line-height:100px;
+	text-indent:4px;
+    font-family:Arial, sans-serif;
+    font-size:20px;
+    color:#000;
+}
+time:nth-child(4) > span:before {
+	line-height:103px;
+	text-indent:6px;
+	font-size:13px;
+}
+time > span:nth-child( 1){-webkit-transform:rotate(  0deg); -moz-transform:rotate(  0deg); -ms-transform:rotate(  0deg); -o-transform:rotate(  0deg); transform:rotate(  0deg);}
+time > span:nth-child( 2){-webkit-transform:rotate( 36deg); -moz-transform:rotate( 36deg); -ms-transform:rotate( 36deg); -o-transform:rotate( 36deg); transform:rotate( 36deg);}
+time > span:nth-child( 3){-webkit-transform:rotate( 72deg); -moz-transform:rotate( 72deg); -ms-transform:rotate( 72deg); -o-transform:rotate( 72deg); transform:rotate( 72deg);}
+time > span:nth-child( 4){-webkit-transform:rotate(108deg); -moz-transform:rotate(108deg); -ms-transform:rotate(108deg); -o-transform:rotate(108deg); transform:rotate(108deg);}
+time > span:nth-child( 5){-webkit-transform:rotate(144deg); -moz-transform:rotate(144deg); -ms-transform:rotate(144deg); -o-transform:rotate(144deg); transform:rotate(144deg);}
+time > span:nth-child( 6){-webkit-transform:rotate(180deg); -moz-transform:rotate(180deg); -ms-transform:rotate(180deg); -o-transform:rotate(180deg); transform:rotate(180deg);}
+time > span:nth-child( 7){-webkit-transform:rotate(216deg); -moz-transform:rotate(216deg); -ms-transform:rotate(216deg); -o-transform:rotate(216deg); transform:rotate(216deg);}
+time > span:nth-child( 8){-webkit-transform:rotate(252deg); -moz-transform:rotate(252deg); -ms-transform:rotate(252deg); -o-transform:rotate(252deg); transform:rotate(252deg);}
+time > span:nth-child( 9){-webkit-transform:rotate(288deg); -moz-transform:rotate(288deg); -ms-transform:rotate(288deg); -o-transform:rotate(288deg); transform:rotate(288deg);}
+time > span:nth-child(10){-webkit-transform:rotate(324deg); -moz-transform:rotate(324deg); -ms-transform:rotate(324deg); -o-transform:rotate(324deg); transform:rotate(324deg);}
+
+/* ボタン */
+section label {
+    position:absolute;
+    z-index:5;
+    left:115px;
+    top:50px;
+    display:none;
+    width:60px;
+    height:20px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+    border-radius:10px;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(rgb(200,200,200)), to(rgb(100,100,100)));
+    background-image:-webkit-linear-gradient(top, rgb(200,200,200), rgb(100,100,100));
+	background-image:-moz-linear-gradient(top, rgb(200,200,200), rgb(100,100,100));
+	background-image:-ms-linear-gradient(top, rgb(200,200,200), rgb(100,100,100));
+	background-image:-o-linear-gradient(top, rgb(200,200,200), rgb(100,100,100));
+	background-image:linear-gradient(top, rgb(200,200,200), rgb(100,100,100));
+    line-height:20px;
+    text-align:center;
+    font-family:Arial, sans-serif;
+    font-size:12px;
+    color:#fff;
+    text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+	-webkit-box-shadow:0 0 2px rgba(0,0,0,0.8);
+	-moz-box-shadow:0 0 2px rgba(0,0,0,0.8);
+	box-shadow:0 0 2px rgba(0,0,0,0.8);
+}
+section label:before {
+	content:attr(for);
+}
+section label:active {
+	-webkit-box-shadow:-1px -1px 2px rgba(0,0,0,0.8);
+	-moz-box-shadow:-1px -1px 2px rgba(0,0,0,0.8);
+    box-shadow:-1px -1px 2px rgba(0,0,0,0.8);
+}
+
+/* スケルトン化の切り替え */
+#skeleton:checked + div section:before {opacity:0.8;}
+#skeleton:checked + div section label  {background:none;}
+
+/* リセット、スタート、ストップの切り替え */
+#reset:checked + div time {-webkit-animation-name:none; -moz-animation-name:none; -ms-animation-name:none; -o-animation-name:none; animation-name:none;}
+#start:checked + div time {-webkit-animation-play-state:running; -moz-animation-play-state:running; -ms-animation-play-state:running; -o-animation-play-state:running; animation-play-state:running;}
+#stop:checked  + div time {-webkit-animation-play-state:paused; -moz-animation-play-state:paused; -ms-animation-play-state:paused; -o-animation-play-state:paused; animation-play-state:paused;}
+
+/* ボタンの切り替え */
+#reset:checked + div section label[for=start] {display:block;}
+#start:checked + div section label[for=stop]  {display:block;}
+#stop:checked  + div section label[for=reset] {display:block;}
+
+/* チックタックな回転 */
+@-webkit-keyframes turnTickly {
+      0% {-webkit-transform:rotate(   0deg);}
+      9% {-webkit-transform:rotate(   0deg);}
+     10% {-webkit-transform:rotate( -36deg);}
+     19% {-webkit-transform:rotate( -36deg);}
+     20% {-webkit-transform:rotate( -72deg);}
+     29% {-webkit-transform:rotate( -72deg);}
+     30% {-webkit-transform:rotate(-108deg);}
+     39% {-webkit-transform:rotate(-108deg);}
+     40% {-webkit-transform:rotate(-144deg);}
+     49% {-webkit-transform:rotate(-144deg);}
+     50% {-webkit-transform:rotate(-180deg);}
+     59% {-webkit-transform:rotate(-180deg);}
+     60% {-webkit-transform:rotate(-216deg);}
+     69% {-webkit-transform:rotate(-216deg);}
+     70% {-webkit-transform:rotate(-252deg);}
+     79% {-webkit-transform:rotate(-252deg);}
+     80% {-webkit-transform:rotate(-288deg);}
+     89% {-webkit-transform:rotate(-288deg);}
+     90% {-webkit-transform:rotate(-324deg);}
+     99% {-webkit-transform:rotate(-324deg);}
+    100% {-webkit-transform:rotate(-360deg);}
+}
+@-moz-keyframes turnTickly {
+      0% {-moz-transform:rotate(   0deg);}
+      9% {-moz-transform:rotate(   0deg);}
+     10% {-moz-transform:rotate( -36deg);}
+     19% {-moz-transform:rotate( -36deg);}
+     20% {-moz-transform:rotate( -72deg);}
+     29% {-moz-transform:rotate( -72deg);}
+     30% {-moz-transform:rotate(-108deg);}
+     39% {-moz-transform:rotate(-108deg);}
+     40% {-moz-transform:rotate(-144deg);}
+     49% {-moz-transform:rotate(-144deg);}
+     50% {-moz-transform:rotate(-180deg);}
+     59% {-moz-transform:rotate(-180deg);}
+     60% {-moz-transform:rotate(-216deg);}
+     69% {-moz-transform:rotate(-216deg);}
+     70% {-moz-transform:rotate(-252deg);}
+     79% {-moz-transform:rotate(-252deg);}
+     80% {-moz-transform:rotate(-288deg);}
+     89% {-moz-transform:rotate(-288deg);}
+     90% {-moz-transform:rotate(-324deg);}
+     99% {-moz-transform:rotate(-324deg);}
+    100% {-moz-transform:rotate(-360deg);}
+}
+@-ms-keyframes turnTickly {
+      0% {-ms-transform:rotate(   0deg);}
+      9% {-ms-transform:rotate(   0deg);}
+     10% {-ms-transform:rotate( -36deg);}
+     19% {-ms-transform:rotate( -36deg);}
+     20% {-ms-transform:rotate( -72deg);}
+     29% {-ms-transform:rotate( -72deg);}
+     30% {-ms-transform:rotate(-108deg);}
+     39% {-ms-transform:rotate(-108deg);}
+     40% {-ms-transform:rotate(-144deg);}
+     49% {-ms-transform:rotate(-144deg);}
+     50% {-ms-transform:rotate(-180deg);}
+     59% {-ms-transform:rotate(-180deg);}
+     60% {-ms-transform:rotate(-216deg);}
+     69% {-ms-transform:rotate(-216deg);}
+     70% {-ms-transform:rotate(-252deg);}
+     79% {-ms-transform:rotate(-252deg);}
+     80% {-ms-transform:rotate(-288deg);}
+     89% {-ms-transform:rotate(-288deg);}
+     90% {-ms-transform:rotate(-324deg);}
+     99% {-ms-transform:rotate(-324deg);}
+    100% {-ms-transform:rotate(-360deg);}
+}
+@-o-keyframes turnTickly {
+      0% {-o-transform:rotate(   0deg);}
+      9% {-o-transform:rotate(   0deg);}
+     10% {-o-transform:rotate( -36deg);}
+     19% {-o-transform:rotate( -36deg);}
+     20% {-o-transform:rotate( -72deg);}
+     29% {-o-transform:rotate( -72deg);}
+     30% {-o-transform:rotate(-108deg);}
+     39% {-o-transform:rotate(-108deg);}
+     40% {-o-transform:rotate(-144deg);}
+     49% {-o-transform:rotate(-144deg);}
+     50% {-o-transform:rotate(-180deg);}
+     59% {-o-transform:rotate(-180deg);}
+     60% {-o-transform:rotate(-216deg);}
+     69% {-o-transform:rotate(-216deg);}
+     70% {-o-transform:rotate(-252deg);}
+     79% {-o-transform:rotate(-252deg);}
+     80% {-o-transform:rotate(-288deg);}
+     89% {-o-transform:rotate(-288deg);}
+     90% {-o-transform:rotate(-324deg);}
+     99% {-o-transform:rotate(-324deg);}
+    100% {-o-transform:rotate(-360deg);}
+}
+@keyframes turnTickly {
+      0% {transform:rotate(   0deg);}
+      9% {transform:rotate(   0deg);}
+     10% {transform:rotate( -36deg);}
+     19% {transform:rotate( -36deg);}
+     20% {transform:rotate( -72deg);}
+     29% {transform:rotate( -72deg);}
+     30% {transform:rotate(-108deg);}
+     39% {transform:rotate(-108deg);}
+     40% {transform:rotate(-144deg);}
+     49% {transform:rotate(-144deg);}
+     50% {transform:rotate(-180deg);}
+     59% {transform:rotate(-180deg);}
+     60% {transform:rotate(-216deg);}
+     69% {transform:rotate(-216deg);}
+     70% {transform:rotate(-252deg);}
+     79% {transform:rotate(-252deg);}
+     80% {transform:rotate(-288deg);}
+     89% {transform:rotate(-288deg);}
+     90% {transform:rotate(-324deg);}
+     99% {transform:rotate(-324deg);}
+    100% {transform:rotate(-360deg);}
+}
+
+/* スムーズな回転 */
+@-webkit-keyframes turnSmoothly {
+      0% {-webkit-transform:rotate(   0deg);}
+    100% {-webkit-transform:rotate(-360deg);}
+}
+@-moz-keyframes turnSmoothly {
+      0% {-moz-transform:rotate(   0deg);}
+    100% {-moz-transform:rotate(-360deg);}
+}
+@-ms-keyframes turnSmoothly {
+      0% {-ms-transform:rotate(   0deg);}
+    100% {-ms-transform:rotate(-360deg);}
+}
+@-o-keyframes turnSmoothly {
+      0% {-o-transform:rotate(   0deg);}
+    100% {-o-transform:rotate(-360deg);}
+}
+@keyframes turnSmoothly {
+      0% {transform:rotate(   0deg);}
+    100% {transform:rotate(-360deg);}
+}

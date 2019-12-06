@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    background-color: #fff;
+    -webkit-transition: background-color .6s;
+    transition: background-color .6s;
+}
+body.dragover {
+    background-color: #cfc;
+}
+
+body > * {
+    margin: 16px;
+}
+
+h1 {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#infoArea {
+    font-size: 13px;
+}
+
+
+#previewArea {}
+#previewArea > * {
+    max-width: 100%;
+}
+#previewArea > object {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+#urlArea {
+    overflow: hidden;
+    word-break: break-all;
+    font-size: 11px;
+}
