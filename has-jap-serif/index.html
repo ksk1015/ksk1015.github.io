@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>font-family: serifのみの指定で日本語明朝体が表示されるかチェックする</title>
+	<style>
+		html {
+			font-family: sans-serif;
+			font-size: 16px;
+		}
+		h1 {
+			font-size: 125%;
+		}
+		.serif {
+			font-family: 'Noto Serif JP', serif;
+			font-size: 200%;
+		}
+	</style>
+</head>
+<body>
+
+<h1>font-family: serifのみの指定で日本語明朝体が表示されるかチェックする</h1>
+<p>チェックして日本語明朝体が表示されなければ、GoogleFontsでNotoSerifを表示するサンプルです</p>
+
+<p class="serif">私はserifです</p>
+
+<p id="result"></p>
+
+<script>
+function hasJapSerif () {
+	const size = 16
+	const canvas = document.createElement('canvas')
+	const ctx = canvas.getContext('2d')
+
+	canvas.width = size
+	canvas.height = size
+
+	ctx.fillStyle = '#000'
+	ctx.textAlign = 'start'
+	ctx.textBaseline = 'top'
+
+	ctx.font = size + 'px sans-serif'
+	ctx.fillText('あ', 0, 0);
+	const pixels1 = ctx.getImageData(0, 0, size, size).data
+
+	ctx.clearRect(0, 0, size, size)
+	ctx.font = size + 'px serif'
+	ctx.fillText('あ', 0, 0);
+	const pixels2 = ctx.getImageData(0, 0, size, size).data
+
+	for (let i = 0, ii = size*size*4; i < ii; i++) {
+		if (pixels1[i] !== pixels2[i]) {
+			return true
+		}
+	}
+	return false
+}
+
+(function () {
+	if (!hasJapSerif()) {
+		const link = document.createElement('link')
+		link.rel = 'stylesheet'
+		link.href = 'https://fonts.googleapis.com/css?family=Noto+Serif+JP'
+		document.head.appendChild(link)
+		document.querySelector('#result').textContent = 'font-family:serifで日本語明朝体が表示されないのでNotoSerifを読み込みました'
+	}
+	else {
+		document.querySelector('#result').textContent = 'font-family:serifで日本語明朝体は表示されます'
+	}
+})()
+</script>
+
+</body>
+</html>
