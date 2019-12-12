@@ -12,10 +12,6 @@
 		h1 {
 			font-size: 125%;
 		}
-		.serif {
-			font-family: 'Noto Serif JP', serif;
-			font-size: 200%;
-		}
 	</style>
 </head>
 <body>
@@ -23,7 +19,11 @@
 <h1>font-family: serifのみの指定で日本語明朝体が表示されるかチェックする</h1>
 <p>チェックして日本語明朝体が表示されなければ、GoogleFontsでNotoSerifを表示するサンプルです</p>
 
-<p class="serif">私はserifです</p>
+<div style="font-size: 200%">
+	<p>私はsans-serifです</p>
+	<p style="font-family: serif">私はserifです</p>
+	<p style="font-family: 'Noto Serif JP'">私はNotoSerifです</p>
+</div>
 
 <p id="result"></p>
 
@@ -63,10 +63,9 @@ function hasJapSerif () {
 		link.rel = 'stylesheet'
 		link.href = 'https://fonts.googleapis.com/css?family=Noto+Serif+JP'
 		document.head.appendChild(link)
-		document.querySelector('#result').textContent = 'font-family:serifで日本語明朝体が表示されないのでNotoSerifを読み込みました'
-	}
-	else {
-		document.querySelector('#result').textContent = 'font-family:serifで日本語明朝体は表示されます'
+		document.querySelector('#result').textContent = 'font-family:serifで日本語明朝体が表示されない'
+	} else {
+		document.querySelector('#result').textContent = 'font-family:serifで日本語明朝体が表示される'
 	}
 })()
 </script>
