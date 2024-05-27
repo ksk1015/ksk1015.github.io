@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detect Css Nesting Supported</title>
+  <style>
+    .foo {
+      color: red;
+      .bar {
+        color: blue;
+      }
+    }
+  </style>
+</head>
+<body>
+  <p class="foo">
+    This text should be red.<br />
+    <span class="bar">This text should be blue.</span>
+  </p>
+  <script>
+    function isCSSNestingSupported(){
+      if (this.cache !== undefined) {
+        return this.cache;
+      }
+      const style = document.createElement('style');
+      document.head.appendChild(style);
+      try {
+        style.sheet.insertRule(`.foo { .bar { color: inherit } }`);
+        this.cache = true;
+      } catch (error) {
+        this.cache = false;
+      } finally {
+        document.head.removeChild(style);
+      }
+      return this.cache;
+    }
+
+    alert(isCSSNestingSupported() ? 'CSS Nesting is supported!!' : 'CSS Nesting is not supported!!');
+  </script>
+</body>
+</html>
