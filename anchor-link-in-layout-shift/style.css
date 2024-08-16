@@ -1,0 +1,51 @@
+:root {
+  --header-height: 80px;
+  --scroll-padding-top: calc(var(--header-height) + 10px);
+  scroll-padding-top: var(--scroll-padding-top);
+}
+
+body {
+  margin-top: var(--scroll-padding-top);
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background: aqua;
+  color: #fff;
+  display: grid;
+  place-content: center;
+}
+
+.block {
+  --content: 'Block';
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid currentColor;
+  height: 10em;
+  &::before {
+    content: var(--content);
+  }
+  &[id] {
+    --content: "#"attr(id);
+    color: green;
+  }
+}
+
+@keyframes layout-shift {
+  to {
+    height: 30em;
+    color: red;
+    --color: red;
+  }
+}
+
+.layout-shift {
+  animation: layout-shift .5s 1s forwards;
+  &::before {
+    content: 'Layout Shift Block';
+  }
+}
