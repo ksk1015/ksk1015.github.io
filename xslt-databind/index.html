@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>XSLTを使ってデータバインディングしてみる</title>
+  </head>
+  <body>
+    <h1>XSLTを使ってデータバインディングしてみる</h1>
+    <p>
+      データをxml形式にしなきゃいけないし、もちろんxmlをxsltで変換するのは速度も早くない
+    </p>
+    <p>
+      <button id="button1">
+        dataをxmlに変換してxsltで変換してレンダリング
+      </button>
+      <span id="time1"></span>
+    </p>
+    <p>
+      <button id="button2">
+        比較用にdataをtemplateリテラルでhtml文字列化してレンダリング
+      </button>
+      <span id="time2"></span>
+    </p>
+    <div id="container"></div>
+    <script type="module">
+      import { bindDataToXsltTemplate } from './main.js'
+
+      let cache = null
+      const getSampleData = async () => {
+        if (cache) return cache
+        const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+        const data = await res.json()
+        cache = data
+        return data
+      }
+
+      button1.onclick = async () => {
+        const data = await getSampleData()
+
+        const startTime = performance.now()
+        const fragment = bindDataToXsltTemplate(
+          data,
+          `<table>
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>userId</th>
+                <th>title</th>
+                <th>body</th>
+              </tr>
+            </thead>
+            <tbody>
+              <xsl:for-each select="data/item">
+                <tr>
+                  <td><xsl:value-of select="id" /></td>
+                  <td><xsl:value-of select="userId" /></td>
+                  <td><xsl:value-of select="title" /></td>
+                  <td><xsl:value-of select="body" /></td>
+                </tr>
+              </xsl:for-each>
+            </tbody>
+          </table>`
+        )
+        time1.textContent = `${(performance.now() - startTime).toFixed(2)}ms`
+
+        container.innerHTML = ''
+        container.appendChild(fragment)
+      }
+
+      button2.onclick = async () => {
+        const data = await getSampleData()
+
+        const startTime = performance.now()
+        // 公平を期すためにfragment化する
+        const fragment = document.createRange().createContextualFragment(`
+          <table>
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>userId</th>
+                <th>title</th>
+                <th>body</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data
+                .map(
+                  (item) => `<tr>
+                    <td>${item.id}</td>
+                    <td>${item.userId}</td>
+                    <td>${item.title}</td>
+                    <td>${item.body}</td>
+                  </tr>`
+                )
+                .join('')}
+            </tbody>
+          </table>
+        `)
+        time2.textContent = `${(performance.now() - startTime).toFixed(2)}ms`
+
+        container.innerHTML = ''
+        container.appendChild(fragment)
+      }
+    </script>
+  </body>
+</html>
