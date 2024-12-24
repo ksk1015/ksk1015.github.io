@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS（というかSVG）でボックスに斜線 - vector-effect="non-scaling-stroke"の有無の違い</title>
+  <style>
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    .code {
+      display: block;
+      word-break: break-all;
+      font-family: monospace;
+      background: #f8f8f8;
+      padding: .5em;
+      margin: 1em 0;
+    }
+
+    .resizeable-box {
+      overflow: hidden;
+      border: 1px dotted silver;
+      width: 300px;
+      height: 150px;
+      resize: both;
+    }
+
+    .diagonal-lined-box {
+      background: var(--bg-image) center / 100% 100% no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS（というかSVG）でボックスに斜線</h1>
+  <form id="form" class="form">
+    <label>
+      <input
+        type="checkbox"
+        name="preserveAspectRatioNone"
+        checked
+      />
+      preserveAspectRatio="none"
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        name="vectorEffectNonScalingStroke"
+        checked
+      />
+      vector-effect="non-scaling-stroke"
+    </label>
+    <label>
+      stroke:
+      <input
+        type="color"
+        name="stroke"
+        value="#000000"
+      />
+    </label>
+    <label>
+      stroke-width:
+      <input
+        type="number"
+        name="strokeWidth"
+        min="0"
+        step="0.1"
+        value="1"
+      />
+    </label>
+    <label>
+      stroke-opacity:
+      <input
+        type="number"
+        name="strokeOpacity"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+      />
+    </label>
+    <label>
+      stroke-dasharray:
+      <input
+        type="text"
+        name="strokeDasharray"
+        value=""
+        list="strokeDasharrayExamples"
+      />
+      <datalist id="strokeDasharrayExamples">
+        <option value="5 5">
+        <option value="10 5">
+        <option value="5 10">
+        <option value="10 5 5 5">
+      </datalist>
+    </label>
+  </form>
+  <code id="outputCode" class="code"></code>
+  <div id="ouputBox" class="resizeable-box diagonal-lined-box"></div>
+
+  <script type="module">
+    const form = document.getElementById('form');
+    const outputCode = document.getElementById('outputCode');
+    const outputBox = document.getElementById('ouputBox');
+
+    const getDiagonalLineSvgText = () => {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      svg.setAttribute('viewBox', '0 0 1 1');
+      if (form.preserveAspectRatioNone.checked) {
+        svg.setAttribute('preserveAspectRatio', 'none');
+      }
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M0,0L1,1');
+      if (form.vectorEffectNonScalingStroke.checked) {
+        path.setAttribute('vector-effect', 'non-scaling-stroke');
+      }
+      path.setAttribute('stroke', form.stroke.value);
+      if (form.strokeWidth.value !== '1') {
+        path.setAttribute('stroke-width', form.strokeWidth.value);
+      }
+      if (form.strokeOpacity.value !== '1') {
+        path.setAttribute('stroke-opacity', form.strokeOpacity.value);
+      }
+      if (form.strokeDasharray.value && !form.strokeDasharray.invalid) {
+        path.setAttribute('stroke-dasharray', form.strokeDasharray.value);
+      }
+      svg.appendChild(path);
+      return (new XMLSerializer().serializeToString(svg))
+    };
+
+    const update = () => {
+      const svg = getDiagonalLineSvgText();
+      const encodedSvg = svg.replace(/#/g, '%23');
+      const bgImage = `url('data:image/svg+xml;utf8,${encodedSvg}')`;
+      outputCode.textContent = `--bg-image: ${bgImage};`;
+      outputBox.style.setProperty('--bg-image', bgImage);
+    };
+
+    form.addEventListener('submit', (e) => e.preventDefault());
+    form.addEventListener('input', update)
+    update();
+  </script>
+</body>
+</html>
