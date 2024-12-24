@@ -38,22 +38,6 @@
   <h2>シミュレーター</h2>
   <form id="form" class="form">
     <label>
-      <input
-        type="checkbox"
-        name="preserveAspectRatioNone"
-        checked
-      />
-      preserveAspectRatio="none"
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        name="vectorEffectNonScalingStroke"
-        checked
-      />
-      vector-effect="non-scaling-stroke"
-    </label>
-    <label>
       斜線のタイプ:
       <select name="d">
         <option value="M0,0L1,1">＼</option>
@@ -118,14 +102,10 @@
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
       svg.setAttribute('viewBox', '0 0 1 1');
-      if (form.preserveAspectRatioNone.checked) {
-        svg.setAttribute('preserveAspectRatio', 'none');
-      }
+      svg.setAttribute('preserveAspectRatio', 'none');
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', form.d.value);
-      if (form.vectorEffectNonScalingStroke.checked) {
-        path.setAttribute('vector-effect', 'non-scaling-stroke');
-      }
+      path.setAttribute('vector-effect', 'non-scaling-stroke');
       path.setAttribute('fill', 'none');
       path.setAttribute('stroke', form.stroke.value);
       if (form.strokeWidth.value !== '1') {
