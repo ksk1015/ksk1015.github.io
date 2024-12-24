@@ -54,7 +54,15 @@
       vector-effect="non-scaling-stroke"
     </label>
     <label>
-      stroke:
+      斜線のタイプ:
+      <select name="d">
+        <option value="M0,0L1,1">＼</option>
+        <option value="M1,0L0,1">／</option>
+        <option value="M0,0L1,1M1,0L0,1">Ｘ</option>
+      </select>
+    </label>
+    <label>
+      色:
       <input
         type="color"
         name="stroke"
@@ -62,7 +70,7 @@
       />
     </label>
     <label>
-      stroke-width:
+      線幅:
       <input
         type="number"
         name="strokeWidth"
@@ -72,7 +80,7 @@
       />
     </label>
     <label>
-      stroke-opacity:
+      透明度:
       <input
         type="number"
         name="strokeOpacity"
@@ -83,7 +91,7 @@
       />
     </label>
     <label>
-      stroke-dasharray:
+      破線 stroke-dasharray:
       <input
         type="text"
         name="strokeDasharray"
@@ -114,10 +122,11 @@
         svg.setAttribute('preserveAspectRatio', 'none');
       }
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', 'M0,0L1,1');
+      path.setAttribute('d', form.d.value);
       if (form.vectorEffectNonScalingStroke.checked) {
         path.setAttribute('vector-effect', 'non-scaling-stroke');
       }
+      path.setAttribute('fill', 'none');
       path.setAttribute('stroke', form.stroke.value);
       if (form.strokeWidth.value !== '1') {
         path.setAttribute('stroke-width', form.strokeWidth.value);

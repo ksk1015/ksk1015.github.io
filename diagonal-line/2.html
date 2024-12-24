@@ -14,8 +14,8 @@
     }
 
     .diagonal-lined-box {
-      --with-vector-effect-non-scaling-stroke: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none"><path d="M0,0L1,1" vector-effect="non-scaling-stroke" stroke="black"/></svg>');
-      --without-vector-effect-non-scaling-stroke: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none"><path d="M0,0L1,1" stroke="black"/></svg>');
+      --with-vector-effect-non-scaling-stroke: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none"><path d="M0,0L1,1" vector-effect="non-scaling-stroke" fill="none" stroke="black"/></svg>');
+      --without-vector-effect-non-scaling-stroke: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none"><path d="M0,0L1,1" fill="none" stroke="black"/></svg>');
       --bg-image: var(--without-vector-effect-non-scaling-stroke);
       :root:has(#vector-effect-non-scaling-stroke:checked) & {
         --bg-image: var(--with-vector-effect-non-scaling-stroke);

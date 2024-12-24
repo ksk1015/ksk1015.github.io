@@ -14,8 +14,8 @@
     }
 
     .diagonal-lined-box {
-      --with-preserveAspectRatio-none: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none"><path d="M0,0L1,1" vector-effect="non-scaling-stroke" stroke="black"/></svg>');
-      --without-preserveAspectRatio-none: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><path d="M0,0L1,1" vector-effect="non-scaling-stroke" stroke="black"/></svg>');
+      --with-preserveAspectRatio-none: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none"><path d="M0,0L1,1" vector-effect="non-scaling-stroke" fill="none" stroke="black"/></svg>');
+      --without-preserveAspectRatio-none: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><path d="M0,0L1,1" vector-effect="non-scaling-stroke" fill="none" stroke="black"/></svg>');
       --bg-image: var(--without-preserveAspectRatio-none);
       :root:has(#preserveAspectRatio:checked) & {
         --bg-image: var(--with-preserveAspectRatio-none);
