@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      viewport幅いっぱいの横スクロールでアイテムの開始位置がコンテンツ幅と揃うやつ
+    </title>
+    <script src="./client-width-to-css.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --content-width: 50rem;
+        --gutter: 1.5rem;
+
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      section {
+        margin-block: 6rem;
+
+        & > h2 {
+          font-size: 1.4rem;
+          margin-bottom: 1em;
+        }
+      }
+
+      .content-width {
+        margin-inline: auto;
+        padding-inline: var(--gutter);
+        max-width: calc(var(--content-width) + var(--gutter) * 2);
+      }
+
+      .demo {
+        pre {
+          margin-block: var(--gutter);
+          font-size: 13px;
+          font-family: 'Courier New', Courier, monospace;
+          padding: 0.5em;
+          background-color: #000;
+          color: #0f0;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-width">
+      <h1>
+        viewport幅いっぱいの横スクロールでアイテムの開始位置がコンテンツ幅と揃うやつ
+      </h1>
+      <p>
+        表題通り、viewport幅いっぱいの横スクロールでアイテムの開始位置がコンテンツ幅と揃うやつをCSSで実装します。
+      </p>
+      <section>
+        <h2>極めてシンプルなデモ</h2>
+        <p>
+          コンテンツ幅のボックス内に横スクロールを普通に配置したら普通にボックス内におさまります。
+        </p>
+        <div class="demo">
+          <style>
+            .horizontal-scroller-1 {
+              height: 200px;
+              display: flex;
+              gap: var(--gutter);
+              overflow-x: auto;
+              & > * {
+                flex-shrink: 0;
+              }
+            }
+          </style>
+          <div class="horizontal-scroller-1">
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>viewport幅いっぱいなデモ</h2>
+        <p>
+          コンテンツ幅のボックス内で手っ取り早くviewport幅いっぱいにするには100vwですが、ウィンドウのスクロールバーがある場合にはみ出しが発生します。それを防ぐ方法としてはjsで
+          document.documentElement.clientWidth
+          を取得、CSS変数にセットして利用する方法などがあります。<br />
+          --client-width はその方法でセットされたCSS変数です。
+        </p>
+        <div class="demo">
+          <style>
+            .horizontal-scroller-2 {
+              --offset-x: calc((var(--client-width) - 100%) / 2);
+              margin-left: calc(-1 * var(--offset-x));
+              width: var(--client-width);
+              height: 200px;
+              display: flex;
+              gap: var(--gutter);
+              overflow-x: auto;
+
+              & > * {
+                flex-shrink: 0;
+              }
+            }
+          </style>
+          <div class="horizontal-scroller-2">
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>アイテムの開始位置をコンテンツ幅と揃えるデモ</h2>
+        <p>
+          さらにアイテムの開始位置をコンテンツ幅と揃えるには、左右のパディングを追加します。
+        </p>
+        <div class="demo">
+          <style>
+            .horizontal-scroller-3 {
+              --offset-x: calc((var(--client-width) - 100%) / 2);
+              margin-inline-start: calc(-1 * var(--offset-x));
+              padding-inline: var(--offset-x);
+              width: var(--client-width);
+              height: 200px;
+              display: flex;
+              gap: var(--gutter);
+              overflow-x: auto;
+
+              & > * {
+                flex-shrink: 0;
+              }
+            }
+          </style>
+          <div class="horizontal-scroller-3">
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>さらに scroll-snap を追加するといい感じなります</h2>
+        <p>
+          scroll-snap-type だけだと
+          snapの位置がコンテンツ幅に揃わないので、scroll-padding-inline
+          を追加して調整したいところですが、 margin, padding の %
+          は親要素の幅に対する割合に対し、scroll-padding の %
+          は自分自身の幅に対する割合になるため、--offset-x:
+          calc((var(--client-width) - 100%) / 2) が使えません。<br />
+          そこで --offset-x を % を使わずに設定する必要があります。
+        </p>
+        <p></p>
+        <div class="demo">
+          <style>
+            .horizontal-scroller-4 {
+              --real-content-width: min(
+                var(--content-width),
+                var(--client-width) - var(--gutter) * 2
+              );
+              --offset-x: calc(
+                (var(--client-width) - var(--real-content-width)) / 2
+              );
+              margin-inline-start: calc(-1 * var(--offset-x));
+              padding-inline: var(--offset-x);
+              width: var(--client-width);
+              height: 200px;
+              display: flex;
+              gap: var(--gutter);
+              overflow-x: auto;
+              scroll-snap-type: x mandatory;
+              scroll-padding-inline-start: var(--offset-x);
+
+              & > * {
+                flex-shrink: 0;
+                scroll-snap-align: start;
+              }
+            }
+          </style>
+          <div class="horizontal-scroller-4">
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+            <random-image></random-image>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="./random-image/random-image.js"></script>
+    <script type="module" src="./display-demo-code.js"></script>
+  </body>
+</html>
